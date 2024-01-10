@@ -2,10 +2,24 @@
 //
 
 #include <iostream>
+#include <vector>
+
+int FibonacciNumber(int n)
+{
+    if (n <= 0)
+    {
+        throw "Such Fibonacci number does not exist";
+    }
+    if (n == 1 || n == 2)
+        return 1;
+    return FibonacciNumber(n - 1) + FibonacciNumber(n - 2);
+}
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
