@@ -55,7 +55,31 @@ struct ListNode
     
 };
 
+template<typename T>
+ListNode<T>* reverseList(ListNode<T>* head)
+{
+    // If the size of the list 0 or 1 we just have to return head because there is no need in reversion it because result will be the same. 
+    if (!head or !(head->next))
+    {
+        return head;
+    }
+
+    ListNode<T>* cur = head;
+    ListNode<T>* next = head->next;
+    head->next = nullptr;
+    while (next)
+    {
+        ListNode<T>* tmp = next->next;
+        next->next = cur;
+        cur = next;
+        next = tmp;
+    }
+    return cur;
+}
+
+
 int main()
 {
+
     return 0;
 }
