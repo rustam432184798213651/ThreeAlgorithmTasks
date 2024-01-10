@@ -5,6 +5,16 @@
 #include <vector>
 #include <stack>
 #include <string>
+#include <list>
+
+template<typename T>
+class ListNode;
+
+template<typename T>
+void printList(ListNode<T>* head);
+
+template<typename T>
+void printListFromSTL(const std::list<T>& lst);
 
 int FibonacciNumber(int n)
 {
@@ -78,6 +88,32 @@ ListNode<T>* reverseList(ListNode<T>* head)
 }
 
 
+template<typename T> 
+std::list<T> reverseListFromSTL(std::list<T> head)
+{
+    int numberOfNodesToPushToBack = head.size();
+    while (numberOfNodesToPushToBack > 1)
+    {
+        int frontValue = head.front();
+        head.push_back(frontValue);
+        head.pop_front();
+        numberOfNodesToPushToBack -= 1;
+    }
+    return head;
+}
+
+int main()
+{
+    std::list<int> head = { 1,2,3,4,5 };
+    std::cout << "List before reversion:\n";
+    printListFromSTL<int>(head);
+    std::cout << "List after reversion:\n";
+    printListFromSTL<int>(reverseListFromSTL(head));
+
+    return 0;
+}
+
+
 template<typename T>
 void printList(ListNode<T>* head)
 {
@@ -88,8 +124,13 @@ void printList(ListNode<T>* head)
     }
 }
 
-int main()
+template<typename T>
+void printListFromSTL(const std::list<T>& lst)
 {
-
-    return 0;
+    std::list<T>::iterator head = lst;
+    while (head)
+    {
+        std::cout << *head << std::endl;
+        head++;
+    }
 }
