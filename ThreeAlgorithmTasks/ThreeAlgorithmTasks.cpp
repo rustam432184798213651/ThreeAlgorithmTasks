@@ -8,7 +8,7 @@
 #include <list>
 
 template<typename T>
-class ListNode;
+struct ListNode;
 
 template<typename T>
 void printList(ListNode<T>* head);
