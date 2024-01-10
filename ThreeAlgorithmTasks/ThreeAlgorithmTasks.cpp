@@ -78,6 +78,16 @@ ListNode<T>* reverseList(ListNode<T>* head)
 }
 
 
+template<typename T>
+void printList(ListNode<T>* head)
+{
+    while (head)
+    {
+        std::cout << head->value << '\n';
+        head = head->next;
+    }
+}
+
 int main()
 {
 
