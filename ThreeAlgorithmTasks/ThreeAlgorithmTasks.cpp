@@ -42,6 +42,18 @@ bool isBalancedString(std::string str)
     return Stack.size() == 0;
 }
 
+template <typename T>
+struct ListNode
+{
+    ListNode(T value = 0, ListNode * next = nullptr)
+    {
+        this->value = value;
+        this->next = next;
+    }
+    T value;
+    ListNode * next;
+    
+};
 
 int main()
 {
