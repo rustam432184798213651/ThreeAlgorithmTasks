@@ -14,7 +14,7 @@ template<typename T>
 void printList(ListNode<T>* head);
 
 template<typename T>
-void printListFromSTL(const std::list<T>& lst);
+void printListFromSTL(std::list<T> lst);
 
 int FibonacciNumber(int n)
 {
@@ -102,14 +102,32 @@ std::list<T> reverseListFromSTL(std::list<T> head)
     return head;
 }
 
+#include <memory>
+#include <vector>
+
+template<typename T>
+class TreeNode
+{
+public:
+    TreeNode(T value = T(), std::shared_ptr<TreeNode<T>> left = nullptr, std::shared_ptr<TreeNode<T>> right = nullptr)
+    {
+        this->left = left;
+        this->right = right;
+        this->value = value;
+    }
+public:
+    std::shared_ptr<TreeNode<T>> left;
+    std::shared_ptr<TreeNode<T>> right;
+    T value;
+};
+
+
+
+
+
 int main()
 {
-    std::list<int> head = { 1,2,3,4,5 };
-    std::cout << "List before reversion:\n";
-    printListFromSTL<int>(head);
-    std::cout << "List after reversion:\n";
-    printListFromSTL<int>(reverseListFromSTL(head));
-
+    
     return 0;
 }
 
@@ -125,12 +143,10 @@ void printList(ListNode<T>* head)
 }
 
 template<typename T>
-void printListFromSTL(const std::list<T>& lst)
+void printListFromSTL(std::list<T> lst)
 {
-    std::list<T>::iterator head = lst;
-    while (head)
+    for (auto it = lst.begin(); it != lst.end(); it++)
     {
-        std::cout << *head << std::endl;
-        head++;
+        std::cout << *it << std::endl;
     }
 }

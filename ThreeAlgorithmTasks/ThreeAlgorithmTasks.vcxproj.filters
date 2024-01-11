@@ -18,5 +18,8 @@
     <ClCompile Include="ThreeAlgorithmTasks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Forms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
