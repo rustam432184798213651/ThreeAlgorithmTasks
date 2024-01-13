@@ -105,21 +105,58 @@ std::list<T> reverseListFromSTL(std::list<T> head)
 #include <memory>
 #include <vector>
 
-template<typename T>
 class TreeNode
 {
 public:
-    TreeNode(T value = T(), std::shared_ptr<TreeNode<T>> left = nullptr, std::shared_ptr<TreeNode<T>> right = nullptr)
+    TreeNode(int value = 0, TreeNode* left = nullptr, TreeNode* right = nullptr)
     {
         this->left = left;
         this->right = right;
         this->value = value;
     }
-public:
-    std::shared_ptr<TreeNode<T>> left;
-    std::shared_ptr<TreeNode<T>> right;
-    T value;
+
+    bool search(int target)
+    {
+
+        if (this->value < target)
+        {
+            if (this->right)
+            {
+                return this->right->search(target);
+            }
+            return false;
+        }
+        else if (this->value > target)
+        {
+            if (this->left)
+            {
+                return this->left->search(target);
+            }
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    TreeNode* left;
+    TreeNode* right;
+    int value;
 };
+
+template<typename T>
+std::shared_ptr<TreeNode<T>> getBinaryTreeSearchFromSortedArray(const std::vector<T>& sortedVector, unsigned int leftIndex, unsigned int rightIndex)
+{
+    if (rightIndex - leftIndex == 0)
+    {
+        return nullptr;
+    }
+    unsigned int currentMiddle = (rightIndex - leftIndex) / 2;
+    std::shared_ptr<TreeNode<T>> root(new TreeNode{ sortedVector[currentMiddle] });
+    root->left = getBinaryTreeSearchFromSortedArray(sortedVector, leftIndex, currentMiddle - 1);
+    root->right = getBinaryTreeSearchFromSortedArray(sortedVector, currentMiddle + 1, rightIndex);
+    return root;
+}
 
 
 
