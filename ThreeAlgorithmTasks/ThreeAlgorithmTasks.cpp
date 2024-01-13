@@ -160,7 +160,34 @@ TreeNode* getBinaryTreeSearchFromSortedArray(const std::vector<int>& sortedVecto
     );
 }
 
-
+TreeNode* deleteNode(TreeNode* root, int key) {
+    if (root)
+    { 
+        if (key < root->value) root->left = deleteNode(root->left, key);     //We frecursively call the function until we find the target node
+        else if (key > root->value) root->right = deleteNode(root->right, key);
+        else {
+            if (!root->left && !root->right) return NULL;          //No child condition
+            
+            if (!root->left || !root->right)
+            {
+                TreeNode* nodeToReturn = nullptr;
+                if (root->left)
+                    nodeToReturn = root->left;
+                else
+                    nodeToReturn = root->right;
+                delete root; 
+                return nodeToReturn;    //One child contion -> replace the node with it's child
+            }
+            //Two child condition   
+            TreeNode* temp = root->left;                        //(or) TreeNode *temp = root->right;
+            while (temp->right != NULL) temp = temp->right;     //      while(temp->left != NULL) temp = temp->left;
+            root->value = temp->value;                            //       root->val = temp->val;
+            root->left = deleteNode(root->left, temp->value);  //        root->right = deleteNode(root->right, temp);		
+            delete temp;
+        }
+    }
+    return root;
+}
 
 
 
