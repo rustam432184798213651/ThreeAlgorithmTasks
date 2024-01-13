@@ -163,10 +163,10 @@ TreeNode* getBinaryTreeSearchFromSortedArray(const std::vector<int>& sortedVecto
 TreeNode* deleteNode(TreeNode* root, int key) {
     if (root)
     { 
-        if (key < root->value) root->left = deleteNode(root->left, key);     //We frecursively call the function until we find the target node
+        if (key < root->value) root->left = deleteNode(root->left, key);    
         else if (key > root->value) root->right = deleteNode(root->right, key);
         else {
-            if (!root->left && !root->right) return NULL;          //No child condition
+            if (!root->left && !root->right) return NULL;     
             
             if (!root->left || !root->right)
             {
@@ -176,20 +176,29 @@ TreeNode* deleteNode(TreeNode* root, int key) {
                 else
                     nodeToReturn = root->right;
                 delete root; 
-                return nodeToReturn;    //One child contion -> replace the node with it's child
+                return nodeToReturn;    
             }
-            //Two child condition   
-            TreeNode* temp = root->left;                        //(or) TreeNode *temp = root->right;
-            while (temp->right != NULL) temp = temp->right;     //      while(temp->left != NULL) temp = temp->left;
-            root->value = temp->value;                            //       root->val = temp->val;
-            root->left = deleteNode(root->left, temp->value);  //        root->right = deleteNode(root->right, temp);		
+            
+            TreeNode* temp = root->left;                        
+            while (temp->right != NULL) temp = temp->right;     
+            root->value = temp->value;                            
+            root->left = deleteNode(root->left, temp->value);  	
             delete temp;
         }
     }
     return root;
 }
 
-
+TreeNode* removeRange(TreeNode* root, int a, int b) // [a, b] range of values that function will delete in BST
+{
+    if (!root)
+        return NULL;
+    root->left = removeRange(root->left, a, b);
+    root->right = removeRange(root->right, a, b);
+    if (root->value >= a && root->value <= b)
+        return deleteNode(root, root->value);
+    return root;
+}
 
 
 int main()
