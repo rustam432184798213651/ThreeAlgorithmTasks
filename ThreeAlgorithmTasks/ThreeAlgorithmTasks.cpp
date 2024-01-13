@@ -144,19 +144,22 @@ public:
     int value;
 };
 
-template<typename T>
-std::shared_ptr<TreeNode<T>> getBinaryTreeSearchFromSortedArray(const std::vector<T>& sortedVector, unsigned int leftIndex, unsigned int rightIndex)
+TreeNode* getBinaryTreeSearchFromSortedArray(const std::vector<int>& sortedVector, unsigned int leftIndex, unsigned int rightIndex)
 {
-    if (rightIndex - leftIndex == 0)
+    if (rightIndex < leftIndex || rightIndex >= sortedVector.size() || leftIndex < 0)
     {
         return nullptr;
     }
-    unsigned int currentMiddle = (rightIndex - leftIndex) / 2;
-    std::shared_ptr<TreeNode<T>> root(new TreeNode{ sortedVector[currentMiddle] });
-    root->left = getBinaryTreeSearchFromSortedArray(sortedVector, leftIndex, currentMiddle - 1);
-    root->right = getBinaryTreeSearchFromSortedArray(sortedVector, currentMiddle + 1, rightIndex);
-    return root;
+
+    int currentMiddle = (rightIndex + leftIndex) / 2;
+
+    return new TreeNode(
+        sortedVector[currentMiddle],
+        getBinaryTreeSearchFromSortedArray(sortedVector, leftIndex, currentMiddle - 1),
+        getBinaryTreeSearchFromSortedArray(sortedVector, currentMiddle + 1, rightIndex)
+    );
 }
+
 
 
 
